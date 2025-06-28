@@ -4,15 +4,37 @@ from langgraph.graph import StateGraph,START,END,MessagesState
 from langchain_openai import ChatOpenAI
 
 from prompt_library.prompts import SYSTEM_PROMPT
+from utils.model_loader import ModelLoader
+
+from tools.calculator import
+from tools.currency_converion_tool import
+from tools.weather_tool import WeatherInfoTool
+from tools.place_search_tool import
 
 
 class Graphbuilder():
 
-    def __init__(self):
+    def __init__(self,model_provider:str="groq"):
         """This methood define the TOOLS"""
-        self.tools = [
 
-        ]
+        self.model_loader = ModelLoader(model_provider="openai")
+        self.llm = self.model_loader.load_llm()
+
+        self.tools = []
+
+        self.weather_tool = WeatherInfoTool()
+        self.calculator_tool = 
+        self.place_search_tool = 
+        self.currency_converter_tool = 
+
+        self.tools.extend()
+
+        self.tools = ([
+ 
+        ])
+        self.llm_With_tools = self.llm.bind_tools(self.tools)
+
+        self.graph = None
         self.system_prompt = SYSTEM_PROMPT  #we use self.variable_name ==only when we need to later use them in another methood
 
 
