@@ -1,6 +1,4 @@
-def main():
-    print("Hello from trip-organizer-ai-agent-llmops!")
+import streamlit as st
 
 
-if __name__ == "__main__":
-    main()
+st.chat_input("Enter query here")

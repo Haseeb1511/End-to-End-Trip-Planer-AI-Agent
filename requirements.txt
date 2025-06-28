@@ -14,5 +14,6 @@ ipykernel
 langchain-openai
 dotenv
 setuptools
+streamlit
 
 -e .

@@ -28,7 +28,6 @@ class ModelLoader(BaseModel):
     class Config:
         arbitrary_types_allowed = True  #Allows you to store non-primitive Python objects in your Pydantic model without validation errors.
 
-
     def load_llm(self):
         """Load nad return the llm"""
         if self.model_provider=="groq":

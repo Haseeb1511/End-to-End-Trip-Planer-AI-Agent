@@ -7,6 +7,7 @@ from prompt_library.prompts import SYSTEM_PROMPT
 
 
 class Graphbuilder():
+
     def __init__(self):
         """This methood define the TOOLS"""
         self.tools = [
@@ -23,7 +24,6 @@ class Graphbuilder():
         return {"messages":response}
 
 
-
     def build_graph(self):
         """This Methood create the graph structure"""
         graph_builder = StateGraph(MessagesState)
@@ -33,7 +33,6 @@ class Graphbuilder():
         graph_builder.add_conditional_edges("agent",tools_condition)
         graph_builder.add_edge("tools","agent")
         graph_builder.add_edge("agent",END)
-
         self.graph = graph_builder.compile()
         return self.graph
 
