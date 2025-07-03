@@ -32,3 +32,4 @@ class WeatherForecastTool:
             return response.json() if response.status_code==200 else {}
         except Exception as e:
             print(f"An error occured while connecting with weather api :{e}") 
+

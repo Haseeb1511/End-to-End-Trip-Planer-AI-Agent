@@ -15,5 +15,6 @@ langchain-openai
 dotenv
 setuptools
 streamlit
+from_root
 
 -e .

@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from langchain.tools import tool
 
-from utils.weather import WeatherForecastTool,ge
+from config.weather import WeatherForecastTool
 
 
 
