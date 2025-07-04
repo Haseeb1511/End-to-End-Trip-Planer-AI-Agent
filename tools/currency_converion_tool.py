@@ -8,10 +8,7 @@ class CurrencyConverterTool:
     def __init__(self):
         self.api_key = os.getenv("EXCHANGE_RATE_API_KEY")
         self.currency_converter = CurrencyConverter(self.api_key)
-        self.currency_converter_tool_list = self._setup_tools()
-
-
-
+        self.currency_converter_tool_list = self._setup_tool()
 
     def _setup_tool(self)->list:
 

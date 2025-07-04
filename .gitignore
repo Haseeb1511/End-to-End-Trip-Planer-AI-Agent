@@ -10,3 +10,5 @@ wheels/
 .venv
 .env 
 trip_organizer_ai_agent_llmops.egg-info
+
+output

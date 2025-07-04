@@ -4,46 +4,50 @@ from langgraph.graph import StateGraph,START,END,MessagesState
 from langchain_openai import ChatOpenAI
 
 from prompt_library.prompts import SYSTEM_PROMPT
-from utils.model_loader import ModelLoader
+from config.model_loader import ModelLoader
 
-from tools.calculator import
-from tools.currency_converion_tool import
+
+
+from tools.calculator import CalculatorTool
+from tools.currency_converion_tool import CurrencyConverterTool
 from tools.weather_tool import WeatherInfoTool
-from tools.place_search_tool import
+from tools.place_search_tool import PlaceSearchTool
 
 
-class Graphbuilder():
+class GraphBuilder():
 
     def __init__(self,model_provider:str="groq"):
         """This methood define the TOOLS"""
 
-        self.model_loader = ModelLoader(model_provider="openai")
+        self.model_loader = ModelLoader(model_provider="groq")
         self.llm = self.model_loader.load_llm()
 
         self.tools = []
 
         self.weather_tool = WeatherInfoTool()
-        self.calculator_tool = 
-        self.place_search_tool = 
-        self.currency_converter_tool = 
+        self.calculator_tool = CalculatorTool()
+        self.place_search_tool = PlaceSearchTool()
+        self.currency_converter_tool = CurrencyConverterTool()
 
-        self.tools.extend()
+        self.tools.extend(self.weather_tool.weather_tool_list +
+                          self.calculator_tool.calculator_tool_list +
+                          self.place_search_tool.place_search_tool_list +
+                          self.currency_converter_tool.currency_converter_tool_list)
 
-        self.tools = ([
- 
-        ])
-        self.llm_With_tools = self.llm.bind_tools(self.tools)
+        self.llm_with_tools = self.llm.bind_tools(self.tools)
 
         self.graph = None
-        self.system_prompt = SYSTEM_PROMPT  #we use self.variable_name ==only when we need to later use them in another methood
+        self.system_prompt = SYSTEM_PROMPT
 
 
-    def agent_funtion(self,state:MessagesState):
-        """This Methood define the agent(model) functionality"""
+    def agent_function(self, state: MessagesState):
         query = state["messages"]
-        input = [self.system_prompt]+query
+        input = [self.system_prompt] + query
         response = self.llm_with_tools.invoke(input)
-        return {"messages":response}
+        if response is None:
+            response = ["Sorry, I could not generate a response."]
+        return {"messages": response}
+
 
 
     def build_graph(self):

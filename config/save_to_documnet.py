@@ -15,7 +15,7 @@ def save_document(response_text:str ,directory:str="./output"):
     """
     try:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename = f"{directory}/AI_TRAVEL_PLANE{timestamp}.md"
+        filename = f"{directory}/Trip organizer AI agent llmops{timestamp}.md"
 
         with open(filename,"w",encoding="utf-8") as f:
             f.write(markdown_content)

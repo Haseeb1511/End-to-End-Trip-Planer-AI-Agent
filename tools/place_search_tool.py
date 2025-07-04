@@ -9,7 +9,7 @@ class PlaceSearchTool:
 
     def __init__(self):
         self.google_api_key = os.environ.get("GPLACES_API_KEY")
-        self.google_place_search = GooglePlaceSearchTool()
+        self.google_place_search = GooglePlaceSearchTool(api_key=self.google_api_key)
         self.tavily_place_search = TavilySearchTool()
         self.place_search_tool_list = self._setup_tools()
 
@@ -18,6 +18,7 @@ class PlaceSearchTool:
 
         @tool
         def search_attraction(place:str):
+            """Search attractions of a place"""
             try:
                 attraction_result = self.google_place_search.google_search_attraction(place)
                 if attraction_result:
@@ -28,6 +29,7 @@ class PlaceSearchTool:
             
         @tool
         def search_resturent(place:str):
+            """Search restaurants of a place"""
             try:
                 resturent_result = self.google_place_search.google_search_resturent(place)
                 if resturent_result:
@@ -39,6 +41,7 @@ class PlaceSearchTool:
 
         @tool
         def search_activity(place:str):
+            """Search activities of a place"""
             try:
                 activity_result = self.google_place_search.google_search_activity(place)
                 if activity_result:
@@ -49,6 +52,7 @@ class PlaceSearchTool:
             
         @tool
         def search_transportation(place:str):
+            """Search transportation of a place"""
             try:
                 transportation_result = self.google_place_search.google_search_transportation(place)
                 if transportation_result:

@@ -3,7 +3,7 @@ from typing import Optional,Literal,Any
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
 
-from utils.config_loader import load_config
+from config.config_loader import load_config
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -14,9 +14,8 @@ class ConfigLoader:
         self.config = load_config()  #Load configuration file
 
     def __getitem__(self,key):
-        self.config[key]    #we give key and get corresponsidng value from config.yaml
+        return self.config[key]    #we give key and get corresponsidng value from config.yaml        Properly returns the value
     
-
 
 class ModelLoader(BaseModel):
     model_provider:Literal["groq","openai"] = "openai"
