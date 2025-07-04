@@ -22,8 +22,6 @@ Below are the visual representations of your trip planning workflow:
 
 ![Workflow Image 1](./UI%20images/1.png)  
 ![Workflow Image 2](./UI%20images/2.png)  
-![Workflow Image 3](./UI%20images/3.png)  
-![Workflow Image 4](./UI%20images/4.png)
 
 ---
 
