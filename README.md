@@ -65,7 +65,42 @@ uvicorn app:app --reload --port 8000
 
 #Streamit ui run
 streamlit run app.py
-
-
 ```
+---
 
+
+
+# Future Work:
+
+## ✅ **Planned Agent Tools**
+
+- ✈️ **Flight Search** — Find and compare flights for the best deals.
+- 🗣️ **Translator Tool** — Translate phrases to assist international travelers.
+- 🛡️ **Travel Safety Alerts** — Notify users about travel advisories or local risks.
+- 🍽️ **Food Recommendations** — Suggest local cuisines and hidden gems.
+
+
+## ⚙️ **MLOps / LLMOps Tools**
+ | Tool | Purpose |
+|------|---------|
+| 🗃️ **MLflow** | Experiment tracking, model registry |
+| 🐋 **Docker** | Containerized, portable environments |
+| 🔁 **CI/CD** | Automated testing & deployment pipelines |
+| 🔍 **LangSmith** | LLM chain tracing and evaluation |
+| 📊 **Weights & Biases (W&B)** | Visual experiment tracking and monitoring |
+| 🗂️ **Prompt Layer** | Version and monitor LLM prompts |
+| 🛡️ **Guardrails AI** | Validate and safeguard LLM outputs |
+| ☁️ **AWS Lambda** | Serverless tasks like sending emails or alerts |
+| 📈 **Prometheus + Grafana** | Metrics collection and system monitoring dashboards |
+
+
+
+1) Use a database (PostgreSQL, DynamoDB, or MongoDB) to  store past searches & preferences.
+2) Add conversational memory: let the agent remember context during the trip planning session.
+3) Add OAuth or sign-in with Google
+4) Add a simple feedback button for the user to rate recommendations
+
+
+5) Instead of just building tools separately, integrate them into a real user flow:
+The user inputs their preferences (budget, destination, dates)
+The agent searches flights, hotels, weather, attractions and creates a daily itinerary.
