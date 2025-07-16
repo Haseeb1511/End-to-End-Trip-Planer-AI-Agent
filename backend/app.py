@@ -32,7 +32,7 @@ async def query(query:Query):
     try:
         print(query)
         graph = GraphBuilder(model_provider = "openai")
-        workflow = graph()
+        workflow = graph()  #it is due to  __call__  in Graphbuilder call it let us call it as a function (build_graph -->Methood)
 
         graph_png = workflow.get_graph().draw_mermaid_png()
         with open("my_graph.png","wb") as f:

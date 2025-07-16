@@ -16,7 +16,7 @@ class WeatherInfoTool:
 
     def _setup_tools(self):
         """Setup all tool for weather forcast tool"""
-        @tool
+        @tool("get_current_weather")
         def get_current_weather(city:str)->str:
             """Get current weather for a Given City"""
             weather_data = self.weather_service.get_current_weather(city)
@@ -26,7 +26,7 @@ class WeatherInfoTool:
                 return f"Current weather in {city}: {temp}°C, {desc}"
             return f"Could not fetch weather for {city}"
         
-        @tool
+        @tool("get_weather_forecast")
         def get_weather_forecast(city:str)->str:
             """Get weather forecast for City"""
             forecast_data = self.weather_service.get_forecast_weather(city)
