@@ -1,13 +1,18 @@
 from fastapi import FastAPI,HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel,Field
+from typing import List
 from fastapi.responses import JSONResponse
 import os
-from agent.agentic_workflow import GraphBuilder
+from src.agent.agentic_workflow import GraphBuilder
+from langchain_core.messages import HumanMessage
 
 
 class Query(BaseModel):
     question: str
+    travel_start_date:str
+    travel_end_date:str
+    budget_range:List[int]
 
 app = FastAPI()
 #In FastAPI (and Starlette, which FastAPI is built on), CORSMiddleware is used to handle Cross-Origin Resource Sharing (CORS).CORS is a security feature implemented by browsers.
@@ -34,7 +39,14 @@ async def query(query:Query):
             f.write(graph_png)
         print(f"Graph build and stored in {os.getcwd()}")
 
-        messages={"messages": [query.question]}
+        user_prompt = f"""
+        User Query: {query.question}
+        Travel Dates: {query.travel_start_date} to {query.travel_end_date}  
+        Budget Range: PKR {query.budget_range[0]:,} to PKR {query.budget_range[1]:,}
+        Please use this information to create a complete travel itinerary.
+        """
+
+        messages={"messages": [HumanMessage(content=user_prompt)]}
         output = workflow.invoke(messages)
 
         # if result is dict with messages
@@ -49,3 +61,4 @@ async def query(query:Query):
     
         
 ##uvicorn app:app --reload --port 8000
+#uvicorn backend.app:app --reload --port 8000

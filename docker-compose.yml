@@ -1,0 +1,39 @@
+
+services:
+  fastapi:
+    image: 129543045830.dkr.ecr.ap-southeast-2.amazonaws.com/trip-fastapi:latest
+    container_name: fastapi_service
+    ports:
+      - "8000:8000"
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    networks:
+      - app_network
+
+  streamlit:
+    image: 129543045830.dkr.ecr.ap-southeast-2.amazonaws.com/trip-streamlit:latest
+    container_name: streamlit_service
+    ports:
+      - "8501:8501"
+    depends_on:
+      - fastapi
+    environment:
+      - API_URL=http://fastapi:8000/predict
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+
+#<YOUR_AWS_ACCOUNT_ID>.dkr.ecr.<YOUR_REGION>.amazonaws.com/<imdb-fastapi---repo name>:latest---->Docker image address stored in your AWS ECR.
+# YOUR_AWS_ACCOUNT_ID.dkr.ecr.YOUR_REGION.amazonaws.com/imdb-streamlit:latest---->Docker image address stored in your AWS ECR.
+#container_name ---->We set the container name custom
+
+#networks:
+#   - app_network
+#Run these containers on the same user-defined bridge network named app_network.
+
+#bridge----> It lets containers talk to each other by service name

@@ -1,9 +1,11 @@
-from config.place_info_search import GooglePlaceSearchTool,TavilySearchTool
-from dotenv import load_dotenv
-load_dotenv()
+from src.config.place_info_search import GooglePlaceSearchTool,TavilySearchTool
 import os
 from langchain.tools import tool
 
+from pathlib import Path
+from dotenv import load_dotenv
+env_path = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(dotenv_path=env_path)
 
 class PlaceSearchTool:
 

@@ -1,8 +1,12 @@
-from dotenv import load_dotenv
-load_dotenv()
 import os
-from config.currency_converter import CurrencyConverter
+from src.config.currency_converter import CurrencyConverter
 from langchain.tools import tool
+
+from pathlib import Path
+from dotenv import load_dotenv
+env_path = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(dotenv_path=env_path)
+
 
 class CurrencyConverterTool:
     def __init__(self):

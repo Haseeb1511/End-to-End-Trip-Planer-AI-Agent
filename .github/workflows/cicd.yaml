@@ -1,0 +1,76 @@
+# name: Deploy Application Docker Images to EC2 instance
+
+# on:
+#   push:
+#     branches: [main]
+
+# jobs:
+#   Continuous-Integration:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+#       - name: Login to Amazon ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v1
+
+#       - name: Build, tag, and push FastAPI image
+#         env:
+#           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#           IMAGE_TAG: latest
+#         run: | 
+#           docker build -t $ECR_REGISTRY/trip-fastapi:latest -f backend/Dockerfile.fastapi . 
+#           docker push $ECR_REGISTRY/trip-fastapi:latest
+
+#       - name: Build, tag, and push Streamlit image
+#         env:
+#           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#           IMAGE_TAG: latest
+#         run: |
+#           docker build -t $ECR_REGISTRY/trio-streamlit:latest -f frontend/Dockerfile.streamlit ./frontend 
+#           docker push $ECR_REGISTRY/trip-streamlit:latest
+
+
+
+#   Continuous-Deployment:
+#     needs: Continuous-Integration
+#     runs-on: self-hosted
+
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+#       - name: Login to Amazon ECR
+#         uses: aws-actions/amazon-ecr-login@v1
+
+#       - name: Pull latest images and restart containers
+#         run: |
+#           docker compose down   #Stops and removes all containers
+#           docker compose pull  #Pulls the latest image versions for each service from your image registry (e.g., AWS ECR).
+#           docker compose up -d --remove-orphans
+
+
+
+# #docker build -t myimage:latest -f backend/Dockerfile.fastapi . 
+
+# #docker compose down ===>  Stops and removes all containers
+
+# #docker compose pull ===> Pulls the latest image versions for each service from your image registry (e.g., AWS ECR).
+
+# # docker compose up -d --remove-orphans ==> up -d: Starts containers in detached mode.  If containers for a service already exist, Compose will recreate them if the image is newer.--remove-orphans: Removes any containers that were started by Compose but are no longer defined in your docker-compose.yml.

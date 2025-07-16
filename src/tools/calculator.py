@@ -1,6 +1,5 @@
-from config.expense_calculator import Calculator
+from src.config.expense_calculator import Calculator
 from langchain.tools import tool
-
 
 
 class CalculatorTool:
