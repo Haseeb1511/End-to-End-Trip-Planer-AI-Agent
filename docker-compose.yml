@@ -1,10 +1,15 @@
 
 services:
   fastapi:
-    image: 129543045830.dkr.ecr.ap-southeast-2.amazonaws.com/trip-fastapi:latest
+    # image: 129543045830.dkr.ecr.ap-southeast-2.amazonaws.com/trip-fastapi:latest
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.fastapi
     container_name: fastapi_service
     ports:
       - "8000:8000"
+    env_file:
+      - .env
     environment:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
@@ -12,20 +17,35 @@ services:
       - app_network
 
   streamlit:
-    image: 129543045830.dkr.ecr.ap-southeast-2.amazonaws.com/trip-streamlit:latest
+    # image: 129543045830.dkr.ecr.ap-southeast-2.amazonaws.com/trip-streamlit:latest
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile.streamlit
+
     container_name: streamlit_service
     ports:
       - "8501:8501"
+    env_file:
+      - .env
     depends_on:
       - fastapi
     environment:
-      - API_URL=http://fastapi:8000/predict
+      - API_URL=http://fastapi:8000/query
     networks:
       - app_network
 
 networks:
   app_network:
     driver: bridge
+
+
+
+
+##====================== FOr local Testing instead of image
+  #  build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile.fastapi
+
 
 
 #<YOUR_AWS_ACCOUNT_ID>.dkr.ecr.<YOUR_REGION>.amazonaws.com/<imdb-fastapi---repo name>:latest---->Docker image address stored in your AWS ECR.
@@ -36,4 +56,7 @@ networks:
 #   - app_network
 #Run these containers on the same user-defined bridge network named app_network.
 
-#bridge----> It lets containers talk to each other by service name
+#bridge----> It lets containers talk to each other by service name#
+
+
+

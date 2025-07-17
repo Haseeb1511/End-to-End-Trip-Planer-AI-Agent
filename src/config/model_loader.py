@@ -49,7 +49,7 @@ class ModelLoader(BaseModel):
             elif self.model_provider=="openai":
                 print("Loading openai llm")
                 model_name = self.config["llm"]["openai"]["model_name"]
-                llm = ChatOpenAI(model=model_name)
+                llm = ChatOpenAI(model=model_name,streaming=True)
 
             return llm
         except Exception as e:
